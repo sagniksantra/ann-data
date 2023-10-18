@@ -21,7 +21,7 @@ const Navbar = () => {
           </li>
           <li>
             <a
-              href="/services"
+              href="/upload"
               className="text-white hover:text-gray-400 transition duration-300 ease-in-out"
             >
               Services
