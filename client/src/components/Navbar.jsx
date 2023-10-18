@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { UserButton } from "@clerk/clerk-react"
 
 const Navbar = () => {
   return (
     <nav className="bg-gray-800 p-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-white font-bold text-xl">
-            <Link to="/">
+            <Link to="/home">
                 agrosync
             </Link>
         </div>
@@ -26,6 +27,9 @@ const Navbar = () => {
             >
               Services
             </a>
+          </li>
+          <li>
+            <UserButton />
           </li>
         </ul>
       </div>
