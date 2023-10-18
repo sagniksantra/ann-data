@@ -1,43 +1,58 @@
 import React, { useState } from 'react';
 
-function ImageUploader() {
-  const [selectedImage, setSelectedImage] = useState(null);
+const FileUpload = () => {
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleImageChange = (e) => {
+  const handleFileSelect = (e) => {
     const file = e.target.files[0];
-
     if (file) {
-      const reader = new FileReader();
-
-      reader.onload = (event) => {
-        setSelectedImage(event.target.result);
-      };
-
-      reader.readAsDataURL(file);
+      setSelectedFile(file);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-semibold mb-4 text-center">Image Uploader</h2>
+    <div className="flex flex-col items-center space-y-4 mt-8"> {/* Add mt-8 for top margin */}
+      <div className="relative border-dashed border-2 border-[#555843] p-8 w-64 h-64 flex flex-col items-center justify-center text-gray-400">
+        {selectedFile ? (
+          <div className="text-center">
+            <p className="text-2xl mb-2">File Selected:</p>
+            <p className="text-lg">{selectedFile.name}</p>
+          </div>
+        ) : (
+          <>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-12 w-12 text-gray-400 mb-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+            <p className="text-2xl text-center">Drag & Drop your files here</p>
+          </>
+        )}
+      </div>
       <input
         type="file"
-        accept="image/*"
-        onChange={handleImageChange}
-        className="block w-full px-4 py-2 mt-2 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+        accept=".jpg, .jpeg, .png, .gif, .pdf"
+        className="hidden"
+        id="file-upload"
+        onChange={handleFileSelect}
       />
-      {selectedImage && (
-        <div className="mt-4">
-          <h3 className="text-xl font-semibold mb-2">Preview:</h3>
-          <img
-            src={selectedImage}
-            alt="Selected"
-            className="w-full max-h-40 object-cover"
-          />
-        </div>
-      )}
+      <label
+        htmlFor="file-upload"
+        className="bg-[#555843] hover:bg-[#F5EEC8] hover:text-[#555843] text-[#F5EEC8] font-bold py-2 px-4 rounded cursor-pointer"
+      >
+        Choose File
+      </label>
     </div>
   );
-}
+};
 
-export default ImageUploader;
+export default FileUpload;

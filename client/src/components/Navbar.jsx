@@ -4,9 +4,9 @@ import { UserButton } from "@clerk/clerk-react"
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-800 p-4">
+    <nav className="bg-[#555843] p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white font-bold text-xl">
+        <div className="text-[#F5EEC8] font-bold text-xl">
             <Link to="/home">
                 agrosync
             </Link>
@@ -15,7 +15,7 @@ const Navbar = () => {
           <li>
             <a
               href="/about"
-              className="text-white hover:text-gray-400 transition duration-300 ease-in-out"
+              className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
             >
               About
             </a>
@@ -23,7 +23,7 @@ const Navbar = () => {
           <li>
             <a
               href="/upload"
-              className="text-white hover:text-gray-400 transition duration-300 ease-in-out"
+              className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
             >
               Services
             </a>

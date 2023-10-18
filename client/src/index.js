@@ -10,6 +10,10 @@ import Landing from "./pages/Landing";
 import Services from "./pages/Services";
 import About from "./pages/About";
 import ImgUpload from "./pages/ImgUpload"; 
+import Chat from "./pages/Chat";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -94,6 +98,45 @@ const ClerkWithRoutes = () => {
             <>
             <SignedIn>
               <About />
+            </SignedIn>
+             <SignedOut>
+              <RedirectToSignIn />
+           </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <>
+            <SignedIn>
+              <Chat />
+            </SignedIn>
+             <SignedOut>
+              <RedirectToSignIn />
+           </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <>
+            <SignedIn>
+              <Register />
+            </SignedIn>
+             <SignedOut>
+              <RedirectToSignIn />
+           </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <>
+            <SignedIn>
+              <Dashboard />
             </SignedIn>
              <SignedOut>
               <RedirectToSignIn />
