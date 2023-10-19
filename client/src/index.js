@@ -13,7 +13,8 @@ import ImgUpload from "./pages/ImgUpload";
 import Chat from "./pages/Chat";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-
+import SoilForm from "./pages/SoilForm";
+import Forum from "./pages/Forum"; 
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -143,6 +144,32 @@ const ClerkWithRoutes = () => {
            </SignedOut>
             </>
           }
+        />
+        <Route
+          path="/soil"
+          element={
+            <>
+            <SignedIn>
+              <SoilForm />
+            </SignedIn>
+             <SignedOut>
+              <RedirectToSignIn />
+           </SignedOut>
+            </>
+          }
+        />
+        <Route 
+          path="/forun"
+          element={
+            <>
+            <SignedIn>
+              <Forum />
+            </SignedIn>
+             <SignedOut>
+              <RedirectToSignIn />
+           </SignedOut>
+            </>
+          }        
         />
       </Routes>
     </ClerkProvider>

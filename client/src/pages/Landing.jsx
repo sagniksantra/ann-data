@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const Landing = () => {
+  const [selectedLanguage, setSelectedLanguage] = useState("english"); // Default to English
+
+  const handleLanguageToggle = (language) => {
+    setSelectedLanguage(language);
+  };
+
   return (
     <>
       <Navbar />
@@ -11,15 +17,21 @@ const Landing = () => {
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-              Optimize Your Farming with अन्न-Data
+              {selectedLanguage === "english"
+                ? "Optimize Your Farming with अन्न-Data"
+                : "अन्न-Data के साथ अपनी कृषि को अद्भुत बनाएं"}
             </h1>
             <p className="mb-8 leading-relaxed">
-              अन्न-Data provides you with the tools and data you need to enhance your farming practices. Join us now to make the most of your agricultural endeavors.
+              {selectedLanguage === "english"
+                ? "अन्न-Data provides you with the tools and data you need to enhance your farming practices. Join us now to make the most of your agricultural endeavors."
+                : "अन्न-Data आपको उन उपकरणों और डेटा के साथ प्रदान करता है जिनकी आपकी कृषि प्रथाओं को बेहतर बनाने की आवश्यकता है. अपने कृषि प्रयासों का सर्वाधिक उपयोग करने के लिए हमारे साथ शामिल हों."}
             </p>
             <div className="flex justify-center">
               <Link to="/register">
                 <button className="inline-flex bg-[#555843] hover:bg-[#F5EEC8] hover:text-[#555843] text-[#F5EEC8] border-0 py-2 px-6 focus:outline-none rounded text-lg">
-                  Tell more about yourself
+                  {selectedLanguage === "english"
+                    ? "Tell more about yourself"
+                    : "अपने बारे में और बताएं"}
                 </button>
               </Link>
             </div>
@@ -50,6 +62,26 @@ const Landing = () => {
             </svg>
           </button>
         </Link>
+      </div>
+      <div className="fixed bottom-12 left-4">
+        <div className="flex justify-end">
+          <button
+            className={`mr-4 ${
+              selectedLanguage === "english" ? "text-blue-600" : ""
+            }`}
+            onClick={() => handleLanguageToggle("english")}
+          >
+            English
+          </button>
+          <button
+            className={`${
+              selectedLanguage === "hindi" ? "text-blue-600" : ""
+            }`}
+            onClick={() => handleLanguageToggle("hindi")}
+          >
+            हिंदी
+          </button>
+        </div>
       </div>
     </>
   );

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
+// import { set } from "mongoose";
 const FileUpload = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [predictionData, setPredictionData] = useState();
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -18,12 +20,14 @@ const FileUpload = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
+        setPredictionData(response.data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+    
   };
+  console.log(predictionData);
   return (
     <div className="flex flex-col items-center space-y-4 mt-8 border-1 border-green-400">
       {" "}
@@ -74,9 +78,15 @@ const FileUpload = () => {
         >
           Submit
         </button>
+        {predictionData && (
+          <div className="mt-4">
+            <h2>Predicted Class: {predictionData.predicted_class}</h2>
+            <p>Confidence: {predictionData.confidence}</p>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default FileUpload;
+export default FileUpload;
