@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 
-
 const Chat = () => {
   const [messages, setMessages] = useState([
     { text: "Hello! How can I help you today?", isUser: false },
