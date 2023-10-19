@@ -1,22 +1,38 @@
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
+import axios from "axios";
 const FileUpload = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleFileSelect = (e) => {
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-    }
+    setSelectedImage(file);
   };
+  const handleUpload = () => {
+    const formData = new FormData();
+    formData.append("image", selectedImage);
 
+    axios
+      .post("http://localhost:3500/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
   return (
-    <div className="flex flex-col items-center space-y-4 mt-8"> {/* Add mt-8 for top margin */}
-      <div className="relative border-dashed border-2 border-[#555843] p-8 w-64 h-64 flex flex-col items-center justify-center text-gray-400">
-        {selectedFile ? (
+    <div className="flex flex-col items-center space-y-4 mt-8 border-1 border-green-400">
+      {" "}
+      {/* Add mt-8 for top margin */}
+      <div className="relative border-dashed border-2 border-[#555843] p-8 w-4/5 h-96 flex flex-col items-center justify-center text-gray-400">
+        {selectedImage ? (
           <div className="text-center">
             <p className="text-2xl mb-2">File Selected:</p>
-            <p className="text-lg">{selectedFile.name}</p>
+            <p className="text-lg">{selectedImage.name}</p>
           </div>
         ) : (
           <>
@@ -28,9 +44,9 @@ const FileUpload = () => {
               stroke="currentColor"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               />
             </svg>
@@ -43,14 +59,22 @@ const FileUpload = () => {
         accept=".jpg, .jpeg, .png, .gif, .pdf"
         className="hidden"
         id="file-upload"
-        onChange={handleFileSelect}
+        onChange={handleImageChange}
       />
-      <label
-        htmlFor="file-upload"
-        className="bg-[#555843] hover:bg-[#F5EEC8] hover:text-[#555843] text-[#F5EEC8] font-bold py-2 px-4 rounded cursor-pointer"
-      >
-        Choose File
-      </label>
+      <div className="flex items-center justify-center">
+        <label
+          htmlFor="file-upload"
+          className="bg-[#555843] hover:bg-[#F5EEC8] hover:text-[#555843] text-[#F5EEC8] font-bold py-2 px-4 rounded cursor-pointer"
+        >
+          Choose File
+        </label>
+        <button
+          onClick={handleUpload}
+          className="bg-[#555843] hover:bg-[#F5EEC8] hover:text-[#555843] text-[#F5EEC8] font-bold py-2 px-4 rounded cursor-pointer ml-2"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 };
