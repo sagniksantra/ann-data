@@ -8,7 +8,7 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-[#F5EEC8] font-bold text-xl">
             <Link to="/home">
-                agrosync
+            अन्न-Data
             </Link>
         </div>
         <ul className="flex space-x-4">
@@ -25,7 +25,7 @@ const Navbar = () => {
               href="/upload"
               className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
             >
-              Services
+              Diagnosis
             </a>
           </li>
           <li>
