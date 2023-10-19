@@ -20,6 +20,17 @@ app.use(
   })
 );
 
+const storage = multer.diskStorage({
+  destination: "../client/uploads", // Directory to save images
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+const upload = multer({ storage: storage });
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
@@ -48,6 +59,11 @@ app.post("/login", async (req, res) => {
   } else {
     res.send("Incorrect UserName/Password.");
   }
+});
+
+app.post("/upload", upload.single("image"), (req, res) => {
+  console.log(req.file);
+  res.send("file uploaded");
 });
 
 app.get("/register", (req, res) => {
