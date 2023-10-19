@@ -5,16 +5,22 @@ const router = express.Router();
 const cors = require("cors");
 const path = require("path");
 const multer = require("multer");
+const axios = require("axios");
+const fs = require("fs");
 require("dotenv").config();
+
 // import { storage } from "../cloudinary/index.js";
 const User = require("./models/user.js");
 const UserDetails = require("./models/UserDetails.js");
+const questionsRouter = require("./routes/question.routes.js");
+const answersRouter = require("./routes/answer.routes.js");
 
+app.use(express.static(__dirname + "../client/uploads"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3001", "https://localhost:3500"],
+    origin: ["http://localhost:3000", "https://localhost:3500"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -61,10 +67,51 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/upload", upload.single("image"), (req, res) => {
+app.post("/upload", upload.single("image"), async (req, res) => {
   console.log(req.file);
-  res.send("file uploaded");
+  var imgpath = req.file.path;
+  imgpath = imgpath.replace(/\\/g, "/");
+  console.log("Uploading image to model...");
+  const image = fs.readFileSync(imgpath, {
+    encoding: "base64",
+  });
+
+  try {
+    const response = await axios({
+      method: "POST",
+      url: "https://detect.roboflow.com/plants-diseases-detection-and-classification/12",
+      params: {
+        api_key: "yOhCoSKWhEs97HO8IBBv",
+      },
+      data: image,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    console.log(response.data);
+    if (response.data.predictions && response.data.predictions.length > 0) {
+      const predicted_class = response.data.predictions[0].class;
+      const confidence = response.data.predictions[0].confidence;
+      console.log(predicted_class);
+      const dataToSend = {
+        predicted_class: predicted_class,
+        confidence: confidence,
+      };
+
+      console.log("this is the data to be sent:", dataToSend);
+      res.json(dataToSend);
+      // res.send("file uploaded");
+    } else {
+      res.send("No predictions found in the response.");
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Error uploading file");
+  }
 });
+
+app.get("/upload", (req, res) => {});
 
 app.get("/register", (req, res) => {
   res.render("register");
@@ -108,6 +155,9 @@ app.get("/user-details", async (req, res, next) => {
     console.log(error);
   }
 });
+
+app.use("/questions", questionsRouter);
+app.use("/answers", answersRouter);
 
 app.listen(3500, () => {
   console.log("server is running on port 3500!!");

@@ -10,7 +10,12 @@ const QnAComponent = () => {
     axios
       .get("http://localhost:3500/questions")
       .then((response) => {
+        console.log("b4");
+        console.log("Questions:", response.data);
+        console.log("after");
         setQuestions(response.data);
+                
+
       })
       .catch((error) => {
         console.error("Error fetching questions:", error);

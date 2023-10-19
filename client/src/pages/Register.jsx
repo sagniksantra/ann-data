@@ -45,11 +45,32 @@ const Register = () => {
     setSelectedLanguage(language);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // You can handle the form submission here, e.g., send data to a server
-    console.log('Form Data:', formData);
-    console.log('Selected Languages:', Object.keys(languages).filter((lang) => languages[lang]));
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3500/know-more",
+        {
+          ...formData,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      console.log(data);
+      navigate("/dashboard");
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log("Form Data:", formData);
+    console.log(
+      "Selected Languages:",
+      Object.keys(languages).filter((lang) => languages[lang])
+    );
   };
 
   return (
