@@ -28,7 +28,7 @@ const SoilForm = () => {
       
       let s = ""
       for (let i = 0; i < x.length; i++){
-        if (i != x.length - 1) {
+        if (i !== x.length - 1) {
           s += String(x[i]) + " "
         }
         else {
@@ -37,7 +37,18 @@ const SoilForm = () => {
       }
       console.log(s)
       const response = await axios.post('http://127.0.0.1:5000/predict/'+s);
-      setResult(response.data.crop);
+      let output = ""
+      for (let i = 0; i < Object.keys(response.data).length; i++) {
+        let crop_num = "crop" + String(i + 1)
+        if (i !== Object.keys(response.data).length - 1) {
+            output += "Crop " + String(i + 1) + " : " + String(response.data[crop_num]) + " "
+          }
+          else {
+            output += "Crop " + String(i + 1) + " : " + String(response.data[crop_num])
+          }
+      }
+      console.log(output)
+      setResult(output);
     } catch (error) {
       console.error(error);
     }
@@ -150,7 +161,7 @@ const SoilForm = () => {
               />
             </div>
             {/* Submit Button */}
-            <button className="text-white bg-[#555843] border-0 py-2 px-8 focus:outline-none rounded text-lg w-1/2">
+            <button className="text-white bg-[#555843] border-0 py-2 px-2 focus:outline-none rounded text-lg w-1/2">
               Predict
             </button>
           </form>

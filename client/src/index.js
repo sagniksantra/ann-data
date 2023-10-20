@@ -21,6 +21,7 @@ import Chat from "./pages/Chat";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import SoilForm from "./pages/SoilForm";
+import SoilForm1 from "./pages/SoilForm1";
 import Forum from "./pages/Forum";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
@@ -159,6 +160,19 @@ const ClerkWithRoutes = () => {
             <>
               <SignedIn>
                 <SoilForm />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/soil1"
+          element={
+            <>
+              <SignedIn>
+                <SoilForm1 />
               </SignedIn>
               <SignedOut>
                 <RedirectToSignIn />
