@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useLanguage } from "../context/LanguageContext";
+import Typed from "react-typed";
 
 const Landing = () => {
   const { currentLanguage } = useLanguage();
@@ -16,12 +17,32 @@ const Landing = () => {
     <>
       <Navbar />
       <section className="bg-[#F5EEC8] text-gray-600 body-font min-h-screen">
-        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+        <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center w-4/5">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
               {currentLanguage === "english"
-                ? "Optimize Your Farming with अन्न-Data"
-                : "अन्न-Data के साथ अपनी कृषि को अद्भुत बनाएं"}
+                ? (<Typed
+                strings={[
+                  "Optimize Your Farming with अन्न-Data",
+                  "Learn. Skill. Upgrade.",
+                  "Empower every farmer.",
+                  "Digitize every farm.",
+                ]}
+                typeSpeed={25}
+                backSpeed={15}
+                loop
+              />)
+                : (<Typed
+                strings={[
+                  "अन्न-Data के साथ अपनी कृषि को अद्भुत बनाएं",
+                  "सीखना. कुशलता. पैमाना.",
+                  "प्रत्येक किसान को सशक्त बनाएं",
+                  "हर खेत को प्रौद्योगिकीय बनाएं",
+                ]}
+                typeSpeed={25}
+                backSpeed={15}
+                loop
+              />)}
             </h1>
             <p className="mb-8 leading-relaxed">
               {currentLanguage === "english"

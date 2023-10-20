@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { UserButton } from "@clerk/clerk-react";
 import { useLanguage } from "../context/LanguageContext";
+import DropDown from "./DropdownNav";
 
 const Navbar = () => {
   const { currentLanguage, toggleLanguage } = useLanguage();
@@ -22,8 +23,8 @@ const Navbar = () => {
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g
                 id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                // stroke-linecap="round"
+                // stroke-linejoin="round"
               ></g>
               <g id="SVGRepo_iconCarrier">
                 {" "}
@@ -62,21 +63,17 @@ const Navbar = () => {
               </svg>
             </button>
           </li>
-          <li>
-            <a
-              href="/home"
-              className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
-            >
-              About
-            </a>
-          </li>
-          <li>
+          
+          {/* <li>
             <a
               href="/upload"
               className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
             >
               Image-Diagnosis
             </a>
+          </li> */}
+          <li>
+            <DropDown/>
           </li>
           <li>
             <a
@@ -84,6 +81,14 @@ const Navbar = () => {
               className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
             >
               Forum
+            </a>
+          </li>
+          <li>
+            <a
+              href="/about"
+              className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
+            >
+              About Us
             </a>
           </li>
           <li>
