@@ -56,10 +56,10 @@ const Dashboard = () => {
                 <span className="font-semibold">Land Amount:</span>{" "}
                 {farmerData.landAmount} acres
               </p>
-              <p className="mb-2">
+              {/* <p className="mb-2">
                 <span className="font-semibold">Number of Family Members:</span>{" "}
                 {farmerData.familyMembers}
-              </p>
+              </p> */}
               <p className="mb-2">
                 <span className="font-semibold">Education Level:</span>{" "}
                 {farmerData.education}
