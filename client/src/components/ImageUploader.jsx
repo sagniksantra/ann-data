@@ -161,10 +161,11 @@ const FileUpload = () => {
       {/* Add mt-8 for top margin */}
         <div className="w-1/2 flex flex-col items-center">
           <div className="w-3/5 border-dashed border-2 border-[#555843] p-8 h-96 flex flex-col items-center justify-center text-gray-400">
+
           {selectedImage ? (
             <div className="text-center">
-              <p className="text-2xl mb-2">File Selected:</p>
-              <p className="text-lg">{selectedImage.name}</p>
+              <p className="text-4xl mb-2 font-bold underline">File Selected:</p>
+              <p className="text-3xl underline;">{selectedImage.name}</p>
             </div>
           ) : (
             <>
