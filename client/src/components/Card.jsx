@@ -51,8 +51,8 @@ const CardComponent = ({
             onClick={() => {
               checkoutHandler(price);
             }}
-            variant="solid"
             colorScheme="blue"
+            variant="solid"
           >
             Buy now
           </Button>
