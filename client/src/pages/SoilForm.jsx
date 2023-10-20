@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
+import { useLanguage } from "../context/LanguageContext";
 
 const SoilForm = () => {
   const [formData, setFormData] = React.useState({
@@ -15,7 +16,7 @@ const SoilForm = () => {
     rainfall: '',
   });
   const [result, setResult] = React.useState('');
-
+  const { currentLanguage } = useLanguage();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -57,13 +58,17 @@ const SoilForm = () => {
       <Navbar />
       <div className="container px-5 py-24 mx-auto flex flex-wrap items-center justify-center">
         <div className="bg-[#A7D397] lg:w-7/12 md:w-1/2 rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0 items-center">
-          <h2 className="text-gray-900 text-4xl font-medium title-font mb-5">Soil Composition</h2>
+          <h2 className="text-gray-900 text-4xl font-medium title-font mb-5">{currentLanguage === "english"
+                    ? "Soil Composition"
+                    : "मिट्टी की संरचना"}</h2>
           <form onSubmit={handleSubmit}>
             <div className='flex flex-wrap justify-evenly'>
             {/* Input Fields */}
             <div className="relative mb-4 flex flex-col justify-center items-start font-bold">
               <label htmlFor="nitrogen" className="leading-7 text-sm text-[#555843] pb-2">
-                Nitrogen
+              {currentLanguage === "english"
+                    ? "Nitrogen"
+                    : "नाइट्रोजन"}
               </label>
               <TextField
                 id="nitrogen"
@@ -77,7 +82,9 @@ const SoilForm = () => {
             </div>
             <div className="relative mb-4 flex flex-col justify-center items-start font-bold">
               <label htmlFor="phosphorus" className="leading-7 text-sm text-[#555843] pb-2">
-                Phosphorus
+              {currentLanguage === "english"
+                    ? "Phosphorus"
+                    : "फास्फोरस"}
               </label>
               <TextField
                 id="phosphorus"
@@ -91,7 +98,9 @@ const SoilForm = () => {
             </div>
             <div className="relative mb-4 flex flex-col justify-center items-start font-bold">
               <label htmlFor="potassium" className="leading-7 text-sm text-[#555843] pb-2">
-                Potassium
+              {currentLanguage === "english"
+                    ? "Potassium"
+                    : "पोटैशियम"}
               </label>
               <TextField
                 id="potassium"
@@ -105,7 +114,9 @@ const SoilForm = () => {
             </div>
             <div className="relative mb-4 flex flex-col justify-center items-start font-bold">
               <label htmlFor="temperature" className="leading-7 text-sm text-[#555843] pb-2">
-                Temperature
+              {currentLanguage === "english"
+                    ? "Temperature"
+                    : "तापमान"}
               </label>
               <TextField
                 id="temperature"
@@ -119,7 +130,9 @@ const SoilForm = () => {
             </div>
             <div className="relative mb-4 flex flex-col justify-center items-start font-bold">
               <label htmlFor="humidity" className="leading-7 text-sm text-[#555843] pb-2">
-                Humidity
+              {currentLanguage === "english"
+                    ? "Humidity"
+                    : "नमी"}
               </label>
               <TextField
                 id="humidity"
@@ -133,7 +146,9 @@ const SoilForm = () => {
             </div>
             <div className="relative mb-4 flex flex-col justify-center items-start font-bold">
               <label htmlFor="pH" className="leading-7 text-sm text-[#555843] pb-2">
-                pH
+              {currentLanguage === "english"
+                    ? "pH"
+                    : "पीएच"}
               </label>
               <TextField
                 id="pH"
@@ -147,7 +162,9 @@ const SoilForm = () => {
             </div>
             <div className="relative mb-4 flex flex-col justify-center items-start font-bold">
               <label htmlFor="rainfall" className="leading-7 text-sm text-[#555843] pb-2">
-                Rainfall
+              {currentLanguage === "english"
+                    ? "Rainfall"
+                    : "वर्षा"}
               </label>
               <TextField
                 id="rainfall"
@@ -162,7 +179,9 @@ const SoilForm = () => {
             </div>
             {/* Submit Button */}
             <button className="text-white bg-[#555843] border-0 py-2 px-2 focus:outline-none rounded text-lg w-1/4 ml-[19rem]">
-              Predict
+            {currentLanguage === "english"
+              ? "Predict"
+              : "भविष्यवाणी"}
             </button>
           </form>
           {/* Display Result */}

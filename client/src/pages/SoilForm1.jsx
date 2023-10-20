@@ -36,6 +36,7 @@ const SoilForm1 = () => {
           s += String(x[i]).toLowerCase();
         }
       }
+      console.log(s);
       const response = await axios.post('http://127.0.0.1:5000/rec/'+s);
       let output = "";
       for (let i = 0; i < Object.keys(response.data).length; i++) {

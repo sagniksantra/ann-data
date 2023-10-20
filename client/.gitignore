@@ -5,7 +5,8 @@
 /docs
 /.pnp
 .pnp.js
-
+/.DS_Store
+/client/tempCodeRunnerFile.py
 # testing
 /coverage
 

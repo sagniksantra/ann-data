@@ -47,9 +47,24 @@ translator = Translator()
 @app.route('/rec/<string:details>', methods = ['POST'])
 def get_rec(details):
     state, district, season = details.split()
+    
     x1 = df[df.State_Name == state]
+    x1_l = translator.detect(x1)
+    if (x1_l.lang != 'en'):
+        x1_l_t = translator.translate(x1, src = x1_l.lang, dest = 'en')
+        x1 = x1_l_t.text
+
     x2 = x1[x1.District_Name == district]
+    x2_l = translator.detect(x2)
+    if (x2_l.lang != 'en'):
+        x2_l_t = translator.translate(x2, src = x2_l.lang, dest = 'en')
+        x2 = x2_l_t.text
+
     x3 = x2[x2.Season == season]
+    x3_l = translator.detect(x3)
+    if (x3_l.lang != 'en'):
+        x3_l_t = translator.translate(x3, src = x3_l.lang, dest = 'en')
+        x3 = x3_l_t.text
     crops = x3['Crop'].unique()
     maxi = 0
     max_ind = 0
