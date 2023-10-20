@@ -12,6 +12,8 @@ require("dotenv").config();
 // import { storage } from "../cloudinary/index.js";
 const User = require("./models/user.js");
 const UserDetails = require("./models/UserDetails.js");
+const Product = require("./models/product.js");
+const Admin = require("./models/admin.js");
 
 app.use(express.static(__dirname + "../client/uploads"));
 app.use(express.urlencoded({ extended: true }));
@@ -21,7 +23,10 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:3001",
-      "https://localhost:3500",
+      "http://localhost:3500",
+      "http://localhost:5173",
+      "http://localhost:3500/products",
+      "http://localhost:4000",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -198,6 +203,41 @@ app.post("/api/questions/:id/answers", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+// Marketplace
+
+app.post("/admin/:id/products", async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const seller = await Admin.findOne({ admin_id: id });
+  if (seller) {
+    const product = new Product(req.body);
+    console.log(product);
+    product.image =
+      "https://source.unsplash.com/1600x900/?" + product.name + " plant";
+    await product.save();
+    console.log("Product is saved.\n", product);
+    res.send(product);
+  } else {
+    console.log("Seller not found");
+    res.send("Seller not found");
+  }
+});
+
+app.get("/products", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.delete("/admin/:id/delete", async (req, res) => {
+  const { id } = req.params;
+  await Product.findByIdAndDelete(id);
+  res.send("Product deleted");
 });
 
 app.listen(3500, () => {

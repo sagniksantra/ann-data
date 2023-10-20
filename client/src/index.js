@@ -23,7 +23,10 @@ import Dashboard from "./pages/Dashboard";
 import SoilForm from "./pages/SoilForm";
 import SoilForm1 from "./pages/SoilForm1";
 import Forum from "./pages/Forum";
+import Home from "./components/Home";
+import PaymentSuccess from "./components/PaymentSuccess";
 import { LanguageProvider } from "./context/LanguageContext";
+import { ChakraProvider } from "@chakra-ui/react";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -194,6 +197,32 @@ const ClerkWithRoutes = () => {
             </>
           }
         />
+        <Route
+          path="/marketplace"
+          element={
+            <>
+              <SignedIn>
+                <Home />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/payment-success"
+          element={
+            <>
+              <SignedIn>
+                <PaymentSuccess />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
       </Routes>
     </ClerkProvider>
   );
@@ -201,11 +230,13 @@ const ClerkWithRoutes = () => {
 
 root.render(
   <React.StrictMode>
-    <LanguageProvider>
-      <BrowserRouter>
-        <ClerkWithRoutes />
-      </BrowserRouter>
-    </LanguageProvider>
+    <ChakraProvider>
+      <LanguageProvider>
+        <BrowserRouter>
+          <ClerkWithRoutes />
+        </BrowserRouter>
+      </LanguageProvider>
+    </ChakraProvider>
   </React.StrictMode>
 );
 
