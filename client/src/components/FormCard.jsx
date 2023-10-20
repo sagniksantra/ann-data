@@ -26,7 +26,7 @@ const App = () => {
       })
       .then(() => {
         setNewQuestion("");
-        setSelectedTag("");
+        // setSelectedTag("");
         axios
           .get("http://localhost:3500/api/questions")
           .then((response) => setQuestions(response.data));
