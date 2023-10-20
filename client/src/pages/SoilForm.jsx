@@ -61,6 +61,7 @@ const SoilForm = () => {
         <div className="bg-[#A7D397] lg:w-7/12 md:w-1/2 rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0 items-center">
           <h2 className="text-gray-900 text-4xl font-medium title-font mb-5">Soil Composition</h2>
           <form onSubmit={handleSubmit}>
+            <div className='flex flex-wrap justify-evenly'>
             {/* Input Fields */}
             <div className="relative mb-4 flex flex-col justify-center items-start font-bold">
               <label htmlFor="nitrogen" className="leading-7 text-sm text-[#555843] pb-2">
@@ -160,8 +161,9 @@ const SoilForm = () => {
                 InputLabelProps={{ shrink: true }}
               />
             </div>
+            </div>
             {/* Submit Button */}
-            <button className="text-white bg-[#555843] border-0 py-2 px-2 focus:outline-none rounded text-lg w-1/2">
+            <button className="text-white bg-[#555843] border-0 py-2 px-2 focus:outline-none rounded text-lg w-1/4 ml-[19rem]">
               Predict
             </button>
           </form>
