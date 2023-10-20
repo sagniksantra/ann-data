@@ -37,7 +37,7 @@ const Landing = () => {
             </div>
           </div>
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
-            <img className="object-cover object-center rounded" alt="hero" src="https://static.vecteezy.com/system/resources/thumbnails/029/890/858/original/landscape-of-green-crops-and-field-4k-clip-of-farming-and-agriculturist-with-seeding-of-rice-young-plant-and-field-rice-field-and-farmland-thailand-agriculture-and-farm-in-asia-video.jpg" />
+            <img className="object-cover object-center rounded" alt="hero" src="https://i.ibb.co/bmfX8L6/farmer.jpg" />
           </div>
         </div>
       </section>
