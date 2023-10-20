@@ -1,12 +1,13 @@
 import React from "react";
-import QnAComponent from "../components/FormCard";
+
 import Navbar from "../components/Navbar";
+import ForumCard from "../components/FormCard";
 
 const Forum = () => {
   return (
     <div>
       <Navbar />
-      <QnAComponent />
+      <ForumCard />
     </div>
   );
 };

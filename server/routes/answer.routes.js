@@ -3,9 +3,12 @@ const router = express.Router();
 const Answer = require("../models/Answer");
 
 // Add a new answer
-router.post("/:questionId", async (req, res) => {
+router.post("/answers", async (req, res) => {
+  console.log(req.params);
   const { questionId } = req.params;
   const { answer } = req.body;
+
+  console.log("questionId:", questionId);
 
   try {
     const newAnswer = new Answer({ questionId, answer });

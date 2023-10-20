@@ -12,15 +12,17 @@ require("dotenv").config();
 // import { storage } from "../cloudinary/index.js";
 const User = require("./models/user.js");
 const UserDetails = require("./models/UserDetails.js");
-const questionsRouter = require("./routes/question.routes.js");
-const answersRouter = require("./routes/answer.routes.js");
 
 app.use(express.static(__dirname + "../client/uploads"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:3001", "https://localhost:3500"],
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:3001",
+      "https://localhost:3500",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -156,8 +158,47 @@ app.get("/user-details", async (req, res, next) => {
   }
 });
 
-app.use("/questions", questionsRouter);
-app.use("/answers", answersRouter);
+// Forum
+const questionSchema = new mongoose.Schema({
+  text: String,
+  tag: String, // Add a field for tags
+  answers: [{ text: String }],
+});
+
+const Question = mongoose.model("Question", questionSchema);
+
+app.get("/api/questions", async (req, res) => {
+  try {
+    const questions = await Question.find();
+    res.json(questions);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/questions", async (req, res) => {
+  const { text, tag } = req.body;
+  try {
+    const question = new Question({ text, tag, answers: [] });
+    await question.save();
+    res.json({ message: "Question added successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+app.post("/api/questions/:id/answers", async (req, res) => {
+  const { text } = req.body;
+  const { id } = req.params;
+  try {
+    const question = await Question.findById(id);
+    question.answers.push({ text });
+    await question.save();
+    res.json({ message: "Answer added successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 app.listen(3500, () => {
   console.log("server is running on port 3500!!");
