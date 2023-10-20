@@ -35,11 +35,11 @@ const FileUpload = () => {
       {/* Add mt-8 for top margin */}
       <div className="w-1/2 flex flex-col items-center">
 
-        <div className="w-3/5 border-dashed border-2 border-[#555843] p-8 h-96 flex flex-col items-center justify-center text-gray-400">
+        <div className="w-3/5 border-dashed border-2 border-[#555843] p-8 h-96 flex flex-col items-center justify-center text-black-600">
           {selectedImage ? (
             <div className="text-center">
-              <p className="text-2xl mb-2">File Selected:</p>
-              <p className="text-lg">{selectedImage.name}</p>
+              <p className="text-4xl mb-2 font-bold underline">File Selected:</p>
+              <p className="text-3xl underline;">{selectedImage.name}</p>
             </div>
           ) : (
             <>
@@ -85,11 +85,12 @@ const FileUpload = () => {
         </div>
 
       </div>
-      <div className="h-[60vh] w-1/2 flex flex-col justify-center items-center">
+      <div className="h-[60vh] w-1/3 flex flex-col justify-center items-center border-dashed border-2 border-[#555843]">
+        <h2 className="text-5xl font-bold">Results</h2>
         {predictionData && (
           <div className="h-[60vh] w-4/5 flex flex-col justify-center items-center">
-            <h2 className="text-5xl font-bold">Predicted Disease:<br/> {predictionData.predicted_class}</h2>
-            <p className="text-2xl font-bold">Confidence: {predictionData.confidence*100}%</p>
+            <h2 className="text-4xl font-bold">Predicted Disease:<br/> {predictionData.predicted_class}</h2>
+            <p className="text-2xl font-bold">Confidence: {(predictionData.confidence*100).toFixed(2)}%</p>
           </div>
         )}
       </div>

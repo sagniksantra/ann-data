@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import axios from "axios";
-import { set } from "mongoose";
+// import { set } from "mongoose";
 
 const Dashboard = () => {
   // Initialize the state with default data

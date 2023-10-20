@@ -25,7 +25,7 @@ const Landing = () => {
             </h1>
             <p className="mb-8 leading-relaxed">
               {currentLanguage === "english"
-                ? "अन्न-Data provides you with the tools and data you need to enhance your farming practices. Join us now to make the most of your agricultural endeavors."
+                ? "अन्न-Data provides you with the tools and data you need to enhance your farming practices.Join us now to make the most of your agricultural endeavors."
                 : "अन्न-Data आपको उन उपकरणों और डेटा के साथ प्रदान करता है जिनकी आपकी कृषि प्रथाओं को बेहतर बनाने की आवश्यकता है. अपने कृषि प्रयासों का सर्वाधिक उपयोग करने के लिए हमारे साथ शामिल हों."}
             </p>
             <div className="flex justify-center">
