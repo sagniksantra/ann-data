@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const Register = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
-    state: '',
-    cropType: '',
-    landAmount: '',
-    familyMembers: '',
-    familyIncome: '',
-    education: '',
-    farmingExperience: '',
+    name: "",
+    state: "",
+    cropType: "",
+    landAmount: "",
+    familyMembers: "",
+    familyIncome: "",
+    education: "",
+    farmingExperience: "",
   });
 
   const [languages, setLanguages] = useState({
@@ -23,12 +24,13 @@ const Register = () => {
     regional: false,
   });
 
-  const [selectedLanguage, setSelectedLanguage] = useState('english'); // Default to English
+  const { currentLanguage } = useLanguage();
+  // const [selectedLanguage, setSelectedLanguage] = useState('english'); // Default to English
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    if (type === 'checkbox') {
+    if (type === "checkbox") {
       setLanguages({
         ...languages,
         [name]: checked,
@@ -41,9 +43,9 @@ const Register = () => {
     }
   };
 
-  const handleLanguageToggle = (language) => {
-    setSelectedLanguage(language);
-  };
+  // const handleLanguageToggle = (language) => {
+  //   setSelectedLanguage(language);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,10 +81,12 @@ const Register = () => {
       <div className="bg-[#F5EEC8] min-h-screen flex items-center justify-center">
         <div className="w-full md:w-3/5 p-6 bg-[#F5EEC8] rounded-md">
           <h1 className="text-2xl font-bold mb-4 text-center">
-            {selectedLanguage === 'english' ? 'Farmer Details' : 'किसान का विवरण'}
+            {currentLanguage === "english"
+              ? "Farmer Details"
+              : "किसान का विवरण"}
           </h1>
 
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <div className="flex justify-end">
               <button
                 className={`mr-4 ${
@@ -101,12 +105,12 @@ const Register = () => {
                 हिंदी
               </button>
             </div>
-          </div>
+          </div> */}
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label htmlFor="name" className="block text-gray-700">
-                {selectedLanguage === 'english' ? 'Name' : 'नाम'}:
+                {currentLanguage === "english" ? "Name" : "नाम"}:
               </label>
               <input
                 type="text"
@@ -121,7 +125,7 @@ const Register = () => {
 
             <div className="mb-4">
               <label htmlFor="state" className="block text-gray-700">
-                {selectedLanguage === 'english' ? 'State' : 'राज्य'}:
+                {currentLanguage === "english" ? "State" : "राज्य"}:
               </label>
               <select
                 id="state"
@@ -132,26 +136,40 @@ const Register = () => {
                 required
               >
                 <option value="">
-                  {selectedLanguage === 'english' ? 'Select State' : 'राज्य चुनें'}
+                  {currentLanguage === "english"
+                    ? "Select State"
+                    : "राज्य चुनें"}
                 </option>
-                <option value="Andhra Pradesh">Andhra Pradesh/आंध्र प्रदेश</option>
-                <option value="Arunachal Pradesh">Arunachal Pradesh/अरुणाचल प्रदेश</option>
+                <option value="Andhra Pradesh">
+                  Andhra Pradesh/आंध्र प्रदेश
+                </option>
+                <option value="Arunachal Pradesh">
+                  Arunachal Pradesh/अरुणाचल प्रदेश
+                </option>
                 <option value="Assam">Assam/आसाम</option>
                 <option value="Bihar">Bihar/बिहार</option>
                 <option value="Chhattisgarh">Chhattisgarh/छत्तीसगढ़</option>
-                <option value="Andhra Pradesh">Andhra Pradesh/आंध्र प्रदेश</option>
-                <option value="Arunachal Pradesh">Arunachal Pradesh/अरुणाचल प्रदेश</option>
+                <option value="Andhra Pradesh">
+                  Andhra Pradesh/आंध्र प्रदेश
+                </option>
+                <option value="Arunachal Pradesh">
+                  Arunachal Pradesh/अरुणाचल प्रदेश
+                </option>
                 <option value="Assam">Assam/आसाम</option>
                 <option value="Bihar">Bihar/बिहार</option>
                 <option value="Chhattisgarh">Chhattisgarh/छत्तीसगढ़</option>
                 <option value="Goa">Goa/गोवा</option>
                 <option value="Gujarat">Gujarat/गुजरात</option>
                 <option value="Haryana">Haryana/हरियाणा</option>
-                <option value="Himachal Pradesh">Himachal Pradesh/हिमाचल प्रदेश</option>
+                <option value="Himachal Pradesh">
+                  Himachal Pradesh/हिमाचल प्रदेश
+                </option>
                 <option value="Jharkhand">Jharkhand/झारखंड</option>
                 <option value="Karnataka">Karnataka/कर्नाटक</option>
                 <option value="Kerala">Kerala/केरल</option>
-                <option value="Madhya Pradesh">Madhya Pradesh/मध्य प्रदेश</option>
+                <option value="Madhya Pradesh">
+                  Madhya Pradesh/मध्य प्रदेश
+                </option>
                 <option value="Maharashtra">Maharashtra/महाराष्ट्र</option>
                 {/* Add more states */}
               </select>
@@ -159,7 +177,10 @@ const Register = () => {
 
             <div className="mb-4">
               <label className="block text-gray-700">
-                {selectedLanguage === 'english' ? 'Type of Crops' : 'फसल के प्रकार'}:
+                {currentLanguage === "english"
+                  ? "Type of Crops"
+                  : "फसल के प्रकार"}
+                :
               </label>
               <div className="flex">
                 <label className="mr-4">
@@ -168,9 +189,9 @@ const Register = () => {
                     name="cropType"
                     value="Rabi"
                     onChange={handleChange}
-                    checked={formData.cropType === 'Rabi'}
+                    checked={formData.cropType === "Rabi"}
                   />
-                  {selectedLanguage === 'english' ? 'Rabi' : 'रबी'}
+                  {currentLanguage === "english" ? "Rabi" : "रबी"}
                 </label>
                 <label className="mr-4">
                   <input
@@ -178,9 +199,9 @@ const Register = () => {
                     name="cropType"
                     value="Kharif"
                     onChange={handleChange}
-                    checked={formData.cropType === 'Kharif'}
+                    checked={formData.cropType === "Kharif"}
                   />
-                  {selectedLanguage === 'english' ? 'Kharif' : 'खरीफ'}
+                  {currentLanguage === "english" ? "Kharif" : "खरीफ"}
                 </label>
                 {/* Add more crop options */}
               </div>
@@ -188,9 +209,10 @@ const Register = () => {
 
             <div className="mb-4">
               <label htmlFor="landAmount" className="block text-gray-700">
-                {selectedLanguage === 'english'
-                  ? 'Amount of Land (in acres)'
-                  : 'ज़मीन की मात्रा (एकड़ में)'}:
+                {currentLanguage === "english"
+                  ? "Amount of Land (in acres)"
+                  : "ज़मीन की मात्रा (एकड़ में)"}
+                :
               </label>
               <input
                 type="number"
@@ -220,9 +242,10 @@ const Register = () => {
 
             <div className="mb-4">
               <label htmlFor="familyIncome" className="block text-gray-700">
-                {selectedLanguage === 'english'
-                  ? 'Family Income (per year)'
-                  : 'परिवार की आय (प्रति वर्ष)'}:
+                {currentLanguage === "english"
+                  ? "Family Income (per year)"
+                  : "परिवार की आय (प्रति वर्ष)"}
+                :
               </label>
               <input
                 type="number"
@@ -236,9 +259,10 @@ const Register = () => {
 
             <div className="mb-4">
               <label htmlFor="education" className="block text-gray-700">
-                {selectedLanguage === 'english'
-                  ? 'Education Level'
-                  : 'शिक्षा स्तर'}:
+                {currentLanguage === "english"
+                  ? "Education Level"
+                  : "शिक्षा स्तर"}
+                :
               </label>
               <input
                 type="text"
@@ -251,10 +275,14 @@ const Register = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="farmingExperience" className="block text-gray-700">
-                {selectedLanguage === 'english'
-                  ? 'Farming Experience (in years)'
-                  : 'कृषि अनुभव (साल में)'}:
+              <label
+                htmlFor="farmingExperience"
+                className="block text-gray-700"
+              >
+                {currentLanguage === "english"
+                  ? "Farming Experience (in years)"
+                  : "कृषि अनुभव (साल में)"}
+                :
               </label>
               <input
                 type="number"
@@ -268,9 +296,7 @@ const Register = () => {
 
             <div className="mb-4">
               <label className="block text-gray-700">
-                {selectedLanguage === 'english'
-                  ? 'Languages Spoken'
-                  : 'भाषा'}:
+                {currentLanguage === "english" ? "Languages Spoken" : "भाषा"}:
               </label>
               <div className="flex">
                 <label className="mr-4">
@@ -280,7 +306,7 @@ const Register = () => {
                     checked={languages.hindi}
                     onChange={handleChange}
                   />
-                  {selectedLanguage === 'english' ? 'Hindi' : 'हिंदी'}
+                  {currentLanguage === "english" ? "Hindi" : "हिंदी"}
                 </label>
                 <label className="mr-4">
                   <input
@@ -298,7 +324,7 @@ const Register = () => {
                     checked={languages.regional}
                     onChange={handleChange}
                   />
-                  {selectedLanguage === 'english' ? 'Regional' : 'क्षेत्रीय'}
+                  {currentLanguage === "english" ? "Regional" : "क्षेत्रीय"}
                 </label>
                 {/* Add more language options */}
               </div>
@@ -308,7 +334,7 @@ const Register = () => {
               type="submit"
               className="bg-[#555843] hover:bg-[#3D4829] text-white py-2 px-4 rounded focus:outline-none focus:ring focus:border-blue-300"
             >
-              {selectedLanguage === 'english' ? 'Submit' : 'प्रस्तुत करें'}
+              {currentLanguage === "english" ? "Submit" : "प्रस्तुत करें"}
             </button>
           </form>
         </div>

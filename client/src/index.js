@@ -23,6 +23,7 @@ import Dashboard from "./pages/Dashboard";
 import SoilForm from "./pages/SoilForm";
 import SoilForm1 from "./pages/SoilForm1";
 import Forum from "./pages/Forum";
+import { LanguageProvider } from "./context/LanguageContext";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -200,9 +201,11 @@ const ClerkWithRoutes = () => {
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ClerkWithRoutes />
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <ClerkWithRoutes />
+      </BrowserRouter>
+    </LanguageProvider>
   </React.StrictMode>
 );
 

@@ -51,6 +51,16 @@ const App = () => {
       });
   };
 
+  const filterQuestionsByTag = (tag) => {
+    return questions.filter((question) => !tag || question.tag === tag);
+  };
+
+  const handleTagChange = (e) => {
+    setSelectedTag(e.target.value);
+  };
+
+  const filteredQuestions = filterQuestionsByTag(selectedTag);
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl mb-4 text-center">Question Answer Forum</h1>
@@ -104,11 +114,11 @@ const App = () => {
             <select
               id="tag"
               value={selectedTag}
-              onChange={(e) => setSelectedTag(e.target.value)}
+              onChange={handleTagChange}
               className="block w-full p-2 pl-3 pr-8 text-sm border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
               required
             >
-              <option value="">Select a Tag</option>
+              <option value="">All Tags</option>
               <option value="weather">Weather</option>
               <option value="produce">Produce</option>
               <option value="crops">Crops</option>
@@ -123,9 +133,9 @@ const App = () => {
           </button>
         </div>
       </form>
-      {questions.length > 0 && (
+      {filteredQuestions.length > 0 && (
         <div className="grid grid-cols-1 gap-4">
-          {questions.map((question) => (
+          {filteredQuestions.map((question) => (
             <div key={question._id} className="bg-gray-100 rounded p-4">
               <div className="mb-2 font-bold text-lg">{question.text}</div>
               <div className="text-blue-600">{`Tag: ${question.tag}`}</div>
@@ -163,6 +173,9 @@ const App = () => {
             </div>
           ))}
         </div>
+      )}
+      {filteredQuestions.length === 0 && (
+        <div className="text-center text-gray-800">No questions found.</div>
       )}
     </div>
   );
