@@ -7,6 +7,8 @@ const path = require("path");
 const multer = require("multer");
 const axios = require("axios");
 const fs = require("fs");
+const Product = require("./models/product.js");
+const Admin = require("./models/admin.js");
 require("dotenv").config();
 
 // import { storage } from "../cloudinary/index.js";
@@ -46,11 +48,6 @@ mongoose
   })
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log(`DB Connection Error: ${err.message}`));
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection error:"));
-// db.once("open", () => {
-//   console.log("Database connected");
-// });
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -198,6 +195,33 @@ app.post("/api/questions/:id/answers", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+app.get("/products", async (req, res) => {
+  const products = await Product.find({});
+  res.send(products);
+});
+
+app.post("/admin/:id/add", async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const seller = await Admin.findOne({ admin_id: id });
+  if (seller) {
+    const product = new Product(req.body);
+    product.image='https://source.unsplash.com/1600x900/?'+product.name+' plant';
+    await product.save();
+    console.log("Product is saved.\n", product);
+    res.send(product);
+  } else {
+    console.log("Seller not found");
+    res.send("Seller not found");
+  }
+});
+
+app.delete("/admin/:id/delete", async (req, res) => {
+  const { id } = req.params;
+  await Product.findByIdAndDelete(id);
+  res.send("Product deleted");
 });
 
 app.listen(3500, () => {
