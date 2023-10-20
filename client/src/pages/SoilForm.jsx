@@ -24,30 +24,28 @@ const SoilForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const x = Object.values(formData)
+      const x = Object.values(formData);
       
-      let s = ""
+      let s = "";
       for (let i = 0; i < x.length; i++){
         if (i !== x.length - 1) {
-          s += String(x[i]) + " "
+          s += String(x[i]) + " ";
         }
         else {
-          s += String(x[i])
+          s += String(x[i]);
         }
       }
-      console.log(s)
       const response = await axios.post('http://127.0.0.1:5000/predict/'+s);
-      let output = ""
+      let output = "";
       for (let i = 0; i < Object.keys(response.data).length; i++) {
-        let crop_num = "crop" + String(i + 1)
+        let crop_num = "crop" + String(i + 1);
         if (i !== Object.keys(response.data).length - 1) {
-            output += "Crop " + String(i + 1) + " : " + String(response.data[crop_num]) + " "
+            output += "Crop " + String(i + 1) + " : " + String(response.data[crop_num]) + " ";
           }
           else {
-            output += "Crop " + String(i + 1) + " : " + String(response.data[crop_num])
+            output += "Crop " + String(i + 1) + " : " + String(response.data[crop_num]);
           }
       }
-      console.log(output)
       setResult(output);
     } catch (error) {
       console.error(error);

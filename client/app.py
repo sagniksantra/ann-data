@@ -6,13 +6,23 @@ from sklearn.neighbors import KNeighborsClassifier
 import tensorflow as tf
 from flask import Flask, jsonify
 from flask_cors import CORS
+from langchain.chat_models import ChatOpenAI
 import pickle
+from googletrans import Translator
+from langchain.embeddings import SentenceTransformerEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.memory import ConversationBufferMemory
+from langchain.llms import HuggingFacePipeline
+from langchain.chains import RetrievalQA, ConversationalRetrievalChain, LLMChain
+from constants import CHROMA_SETTINGS 
 
 app = Flask(__name__)
 CORS(app)
 
-openai.api_key ="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"
-model= pickle.load(open('model.pkl', 'rb'))
+os.environ["OPENAI_API_KEY"] = "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"
+os.environ["TOKENIZERS_PARALLELISM"] = "False"
+# llm = OpenAI(openai_api_key=openai_api_key, temperature=0)
+llm = ChatOpenAI(openai_api_key=os.environ["OPENAI_API_KEY"], temperature=0.1, model="gpt-3.5-turbo")
 
 crops = ['rice', 'maize', 'chickpea', 'kidneybeans', 'pigeonpeas',
        'mothbeans', 'mungbean', 'blackgram', 'lentil', 'pomegranate',
@@ -30,6 +40,9 @@ for i in cols:
     df[i] = [s.strip() for s in df[i]]
     df[i] = [s.replace(' ', '') for s in df[i]]
     df[i] = [s.lower() for s in df[i]]
+
+model = pickle.load(open('model.pkl', 'rb'))
+translator = Translator()
 
 @app.route('/rec/<string:details>', methods = ['POST'])
 def get_rec(details):
@@ -63,16 +76,44 @@ def get_rec(details):
  
     return  ans
 
-@app.route('/chatbot/<string:prompt>', methods = ['POST'])
-def chatgpt_call(prompt, model="gpt-3.5-turbo"):
-   response = openai.ChatCompletion.create(
-       model=model,
-       messages=[{"role": "user", "content": prompt}]
-   )
-   ans = {
-      "Answer" : response.choices[0].message["content"]
-   }
-   return ans
+@app.route('/chatbot/<string:instruction>/<string:source>/<string:des>/<int:ch>', methods = ['POST'])
+def chatgpt_call(instruction, source, des, ch):
+    if (ch == 0):
+        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+        embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+        db = Chroma(persist_directory="db", embedding_function=embeddings, client_settings=CHROMA_SETTINGS)
+        
+        retriever = db.as_retriever()
+        qa = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, memory = memory)
+
+        l = translator.detect(instruction)
+        if (source != des):
+            if (l.lang != source):
+                raise Exception("Wrong language")
+            else:
+                instruction = translator.translate(instruction, src = source, dest = des)
+            instruction = instruction.text
+    #  print(instruction)
+        # qa = qa_llm()
+        # generated_text = qa(instruction)
+        # answer = generated_text['result']
+        generated_text = qa({"question": instruction})
+        answer = generated_text['answer']
+        ans = {
+            "Answer": answer
+        }
+        # memory.save_context({"input": instruction}, {"output": answer})
+        # chat_history.append((instruction, answer))
+        # print(chat_history)
+    elif (ch == 1):
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": instruction}]
+        )
+        ans = {
+            "Answer" : response.choices[0].message["content"]
+        }
+    return ans
 
 @app.route('/predict/<string:features>', methods = ['POST'])
 def predict(features):
@@ -87,8 +128,5 @@ def predict(features):
     }
     return ans
 
-# prompt = "I am a farmer from {User.location} and my plant has {Predicted disease name}, how should i treat that. Give a detailed answer with a step by step procedure including all details. in the answer , include the necessary steps, fertilizers, medicines."
-# response = chatgpt_call(prompt)
-# print(response)
 if __name__ == "__main__":
    app.run(debug = True)
