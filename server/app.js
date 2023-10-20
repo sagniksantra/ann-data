@@ -7,6 +7,8 @@ const path = require("path");
 const multer = require("multer");
 const axios = require("axios");
 const fs = require("fs");
+const Product = require("./models/product.js");
+const Admin = require("./models/admin.js");
 require("dotenv").config();
 
 // import { storage } from "../cloudinary/index.js";
@@ -51,11 +53,6 @@ mongoose
   })
   .then(() => console.log("DB Connected"))
   .catch((err) => console.log(`DB Connection Error: ${err.message}`));
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection error:"));
-// db.once("open", () => {
-//   console.log("Database connected");
-// });
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -205,7 +202,6 @@ app.post("/api/questions/:id/answers", async (req, res) => {
   }
 });
 
-// Marketplace
 
 app.post("/admin/:id/products", async (req, res) => {
   const { id } = req.params;
@@ -214,8 +210,7 @@ app.post("/admin/:id/products", async (req, res) => {
   if (seller) {
     const product = new Product(req.body);
     console.log(product);
-    product.image =
-      "https://source.unsplash.com/1600x900/?" + product.name + " plant";
+    product.image='https://source.unsplash.com/1600x900/?'+product.name+' plant';
     await product.save();
     console.log("Product is saved.\n", product);
     res.send(product);
@@ -225,6 +220,7 @@ app.post("/admin/:id/products", async (req, res) => {
   }
 });
 
+
 app.get("/products", async (req, res) => {
   try {
     const products = await Product.find();
@@ -233,6 +229,7 @@ app.get("/products", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 
 app.delete("/admin/:id/delete", async (req, res) => {
   const { id } = req.params;
