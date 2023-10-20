@@ -25,7 +25,7 @@ const Chat = () => {
       setNewMessage("");
 
       axios
-        .post("http://127.0.0.1:5000/chatbot/" + encodeURIComponent(newMessage))
+        .post("http://127.0.0.1:5000/chatbot/" + encodeURIComponent(newMessage) + '/en/en/0')
         .then((response) => {
           const botMessage = { text: response.data.Answer, isUser: false };
           setMessages((prevMessages) => [...prevMessages, botMessage]);

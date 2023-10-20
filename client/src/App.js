@@ -34,7 +34,6 @@
 import React, { useState } from "react";
 
 function App() {
-
   return (
     <>
       <header class="text-gray-600 bg-[#555843] body-font">
