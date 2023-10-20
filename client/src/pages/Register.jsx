@@ -139,6 +139,20 @@ const Register = () => {
                 <option value="Assam">Assam/आसाम</option>
                 <option value="Bihar">Bihar/बिहार</option>
                 <option value="Chhattisgarh">Chhattisgarh/छत्तीसगढ़</option>
+                <option value="Andhra Pradesh">Andhra Pradesh/आंध्र प्रदेश</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh/अरुणाचल प्रदेश</option>
+                <option value="Assam">Assam/आसाम</option>
+                <option value="Bihar">Bihar/बिहार</option>
+                <option value="Chhattisgarh">Chhattisgarh/छत्तीसगढ़</option>
+                <option value="Goa">Goa/गोवा</option>
+                <option value="Gujarat">Gujarat/गुजरात</option>
+                <option value="Haryana">Haryana/हरियाणा</option>
+                <option value="Himachal Pradesh">Himachal Pradesh/हिमाचल प्रदेश</option>
+                <option value="Jharkhand">Jharkhand/झारखंड</option>
+                <option value="Karnataka">Karnataka/कर्नाटक</option>
+                <option value="Kerala">Kerala/केरल</option>
+                <option value="Madhya Pradesh">Madhya Pradesh/मध्य प्रदेश</option>
+                <option value="Maharashtra">Maharashtra/महाराष्ट्र</option>
                 {/* Add more states */}
               </select>
             </div>
@@ -152,21 +166,21 @@ const Register = () => {
                   <input
                     type="radio"
                     name="cropType"
-                    value="Rice"
+                    value="Rabi"
                     onChange={handleChange}
-                    checked={formData.cropType === 'Rice'}
+                    checked={formData.cropType === 'Rabi'}
                   />
-                  {selectedLanguage === 'english' ? 'Rice' : 'चावल'}
+                  {selectedLanguage === 'english' ? 'Rabi' : 'रबी'}
                 </label>
                 <label className="mr-4">
                   <input
                     type="radio"
                     name="cropType"
-                    value="Wheat"
+                    value="Kharif"
                     onChange={handleChange}
-                    checked={formData.cropType === 'Wheat'}
+                    checked={formData.cropType === 'Kharif'}
                   />
-                  {selectedLanguage === 'english' ? 'Wheat' : 'गेंहूँ'}
+                  {selectedLanguage === 'english' ? 'Kharif' : 'खरीफ'}
                 </label>
                 {/* Add more crop options */}
               </div>
@@ -188,7 +202,7 @@ const Register = () => {
               />
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label htmlFor="familyMembers" className="block text-gray-700">
                 {selectedLanguage === 'english'
                   ? 'Number of Family Members'
@@ -202,7 +216,7 @@ const Register = () => {
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
               />
-            </div>
+            </div> */}
 
             <div className="mb-4">
               <label htmlFor="familyIncome" className="block text-gray-700">
