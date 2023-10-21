@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useLanguage } from "../context/LanguageContext";
 
+import {TypeAnimation} from "react-type-animation"
 const Landing = () => {
   const { currentLanguage } = useLanguage();
   // const [selectedLanguage, setSelectedLanguage] = useState("english"); // Default to English
@@ -19,9 +20,29 @@ const Landing = () => {
         <div className="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
-              {currentLanguage === "english"
-                ? "Optimize Your Farming with अन्न-Data"
-                : "अन्न-Data के साथ अपनी कृषि को अद्भुत बनाएं"}
+            {currentLanguage === "english"
+                ? <TypeAnimation 
+                sequence={[
+                  "Optimize Your Farming with अन्न-Data",
+                  "Digitize. Skill. Upgrade",
+                  "Empower every farmer.",
+                  1000,
+                ]}
+                speed={50}
+                repeat={Infinity}
+                style={{ fontSize: "1.5rem" }}
+            />
+                :<TypeAnimation 
+                sequence={[
+                  "अन्न-Data के साथ अपनी कृषि को अद्भुत बनाएं",
+                  1000,
+                ]}
+                speed={75}
+                repeat={true}
+                style={{ fontSize: "1.5rem" }}
+            />
+                
+                }
             </h1>
             <p className="mb-8 leading-relaxed">
               {currentLanguage === "english"
@@ -30,10 +51,17 @@ const Landing = () => {
             </p>
             <div className="flex justify-center">
               <Link to="/register">
-                <button className="inline-flex bg-[#555843] hover:bg-[#F5EEC8] hover:text-[#555843] text-[#F5EEC8] border-0 py-2 px-6 focus:outline-none rounded text-lg">
+                <button className="inline-flex bg-[#555843] hover:bg-[#F5EEC8] hover:text-[#555843] text-[#F5EEC8] border-0 py-2 px-6 focus:outline-none rounded-lg text-lg">
                   {currentLanguage === "english"
-                    ? "Tell more about yourself"
-                    : "अपने बारे में और बताएं"}
+                    ? "Become a seller"
+                    : "विक्रेता बनें"}
+                </button>
+              </Link>
+              <Link to="/services">
+                <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 hover:text-gray-700 rounded-lg text-lg">
+                  {currentLanguage === "english"
+                    ? "Our Services"
+                    : "हमारी सेवाएं"}
                 </button>
               </Link>
             </div>
@@ -47,7 +75,7 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <Footer />
+      {/* <Footer /> */}
 
       <div className="fixed bottom-4 right-4">
         <Link to="/chat">

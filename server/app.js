@@ -23,7 +23,10 @@ app.use(
     origin: [
       "http://localhost:3000",
       "http://localhost:3001",
-      "https://localhost:3500",
+      "http://localhost:3500",
+      "http://localhost:5173",
+      "http://localhost:3500/products",
+      "http://localhost:4000",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -128,6 +131,7 @@ app.post("/know-more", async (req, res, next) => {
       familyIncome,
       education,
       farmingExperience,
+      mobileNumber,
     } = req.body;
     const newUserDetail = await UserDetails.create({
       name,
@@ -138,6 +142,7 @@ app.post("/know-more", async (req, res, next) => {
       familyIncome,
       education,
       farmingExperience,
+      mobileNumber,
     });
   } catch (error) {
     console.log(error);
@@ -197,18 +202,15 @@ app.post("/api/questions/:id/answers", async (req, res) => {
   }
 });
 
-app.get("/products", async (req, res) => {
-  const products = await Product.find({});
-  res.send(products);
-});
-
-app.post("/admin/:id/add", async (req, res) => {
+app.post("/admin/:id/products", async (req, res) => {
   const { id } = req.params;
   console.log(id);
   const seller = await Admin.findOne({ admin_id: id });
   if (seller) {
     const product = new Product(req.body);
-    product.image='https://source.unsplash.com/1600x900/?'+product.name+' plant';
+    console.log(product);
+    product.image =
+      "https://source.unsplash.com/1600x900/?" + product.name + " plant";
     await product.save();
     console.log("Product is saved.\n", product);
     res.send(product);
@@ -218,10 +220,39 @@ app.post("/admin/:id/add", async (req, res) => {
   }
 });
 
+app.get("/products", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.delete("/admin/:id/delete", async (req, res) => {
   const { id } = req.params;
   await Product.findByIdAndDelete(id);
   res.send("Product deleted");
+});
+
+app.post("/submit-mobile-number", async (req, res) => {
+  const { mobileNumber } = req.body;
+  console.log(req.body);
+
+  try {
+    const admin = await Admin.findOne({ mobileNumber: mobileNumber });
+
+    if (admin) {
+      console.log("Admin found. Redirecting to /marketplace");
+      res.status(200).json({ redirect: "/marketplace" });
+    } else {
+      console.log("Admin not found. Redirecting to /buy");
+      res.status(200).json({ redirect: "/buy" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 app.listen(3500, () => {

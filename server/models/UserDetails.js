@@ -33,6 +33,10 @@ const userDetailSchema = new mongoose.Schema({
     type: Number,
     require: true,
   },
+  mobileNumber: {
+    type: Number,
+    require: true,
+  },
 });
 
 const UserDetails = mongoose.model("UserDetails", userDetailSchema);

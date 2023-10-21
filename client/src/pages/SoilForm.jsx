@@ -1,9 +1,10 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
 import { useLanguage } from "../context/LanguageContext";
+import { Input } from '@chakra-ui/react';
 
 const SoilForm = () => {
   const [formData, setFormData] = React.useState({
@@ -70,10 +71,10 @@ const SoilForm = () => {
                     ? "Nitrogen"
                     : "नाइट्रोजन"}
               </label>
-              <TextField
+              <Input
                 id="nitrogen"
                 name="nitrogen"
-                label="Quantity"
+                // label="Quantity"
                 type="number"
                 value={formData.nitrogen}
                 onChange={handleChange}
@@ -86,10 +87,10 @@ const SoilForm = () => {
                     ? "Phosphorus"
                     : "फास्फोरस"}
               </label>
-              <TextField
+              <Input
                 id="phosphorus"
                 name="phosphorus"
-                label="Quantity"
+                // label="Quantity"
                 type="number"
                 value={formData.phosphorus}
                 onChange={handleChange}
@@ -102,10 +103,10 @@ const SoilForm = () => {
                     ? "Potassium"
                     : "पोटैशियम"}
               </label>
-              <TextField
+              <Input
                 id="potassium"
                 name="potassium"
-                label="Quantity"
+                // label="Quantity"
                 type="number"
                 value={formData.potassium}
                 onChange={handleChange}
@@ -118,10 +119,10 @@ const SoilForm = () => {
                     ? "Temperature"
                     : "तापमान"}
               </label>
-              <TextField
+              <Input
                 id="temperature"
                 name="temperature"
-                label="Quantity"
+                // label="Quantity"
                 type="number"
                 value={formData.temperature}
                 onChange={handleChange}
@@ -134,10 +135,10 @@ const SoilForm = () => {
                     ? "Humidity"
                     : "नमी"}
               </label>
-              <TextField
+              <Input
                 id="humidity"
                 name="humidity"
-                label="Quantity"
+                // label="Quantity"
                 type="number"
                 value={formData.humidity}
                 onChange={handleChange}
@@ -150,10 +151,10 @@ const SoilForm = () => {
                     ? "pH"
                     : "पीएच"}
               </label>
-              <TextField
+              <Input
                 id="pH"
                 name="pH"
-                label="Quantity"
+                // label="Quantity"
                 type="number"
                 value={formData.pH}
                 onChange={handleChange}
@@ -166,7 +167,7 @@ const SoilForm = () => {
                     ? "Rainfall"
                     : "वर्षा"}
               </label>
-              <TextField
+              <Input
                 id="rainfall"
                 name="rainfall"
                 label="Quantity"

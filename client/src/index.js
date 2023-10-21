@@ -23,7 +23,14 @@ import Dashboard from "./pages/Dashboard";
 import SoilForm from "./pages/SoilForm";
 import SoilForm1 from "./pages/SoilForm1";
 import Forum from "./pages/Forum";
+
+import Home from "./components/Home";
+import Buy from "./components/Buy";
+
+import PaymentSuccess from "./components/PaymentSuccess";
 import { LanguageProvider } from "./context/LanguageContext";
+import { ChakraProvider } from "@chakra-ui/react";
+import MobileNumberService from "./components/MobileNumberServices";
 
 if (!process.env.REACT_APP_CLERK_PUBLISHABLE_KEY) {
   throw new Error("Missing Publishable Key");
@@ -194,6 +201,71 @@ const ClerkWithRoutes = () => {
             </>
           }
         />
+        <Route
+          path="/marketplace"
+          element={
+            <>
+              <SignedIn>
+                <Home />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/buy"
+          element={
+            <>
+              <SignedIn>
+                <Buy />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/payment-success"
+          element={
+            <>
+              <SignedIn>
+                <PaymentSuccess />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/services"
+          element={
+            <>
+              <SignedIn>
+                <Services />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route
+          path="/mobile-number"
+          element={
+            <>
+              <SignedIn>
+                <MobileNumberService />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
       </Routes>
     </ClerkProvider>
   );
@@ -201,11 +273,13 @@ const ClerkWithRoutes = () => {
 
 root.render(
   <React.StrictMode>
-    <LanguageProvider>
-      <BrowserRouter>
-        <ClerkWithRoutes />
-      </BrowserRouter>
-    </LanguageProvider>
+    <ChakraProvider>
+      <LanguageProvider>
+        <BrowserRouter>
+          <ClerkWithRoutes />
+        </BrowserRouter>
+      </LanguageProvider>
+    </ChakraProvider>
   </React.StrictMode>
 );
 

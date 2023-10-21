@@ -16,6 +16,7 @@ const Register = () => {
     familyIncome: "",
     education: "",
     farmingExperience: "",
+    mobileNumber: "",
   });
 
   const [languages, setLanguages] = useState({
@@ -63,7 +64,7 @@ const Register = () => {
       );
 
       console.log(data);
-      navigate("/dashboard");
+      navigate("/services");
     } catch (err) {
       console.log(err);
     }
@@ -239,6 +240,21 @@ const Register = () => {
                 className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
               />
             </div> */}
+
+            <div className="mb-4">
+              <label htmlFor="mobileNumber" className="block text-gray-700">
+                {currentLanguage === "english" ? "Mobile Number" : "मोबाइल"}:
+              </label>
+              <input
+                type="number"
+                id="mobileNumber"
+                name="mobileNumber"
+                value={formData.mobileNumber}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-300"
+                required
+              />
+            </div>
 
             <div className="mb-4">
               <label htmlFor="familyIncome" className="block text-gray-700">

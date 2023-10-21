@@ -47,24 +47,25 @@ translator = Translator()
 @app.route('/rec/<string:details>', methods = ['POST'])
 def get_rec(details):
     state, district, season = details.split()
-    
+
+    # translate state
+    # state_l = translator.detect(state)
+    # if (state_l.lang != 'en'):
+    #     state_t = translator.translate(state, src = state_l.lang, dest = 'en')
+    #     state = state_t.text
+    # #translate district
+    # district_l = translator.detect(district)
+    # if (district_l.lang != 'en'):
+    #     district_t = translator.translate(district, src = district_l.lang, dest = 'en')
+    #     district = district_t.text
+    # #translate season
+    # season_l = translator.detect(season)
+    # if (season_l.lang != 'en'):
+    #     season_t = translator.translate(season, src = season_l.lang, dest = 'en')
+    #     season = season_t.text
     x1 = df[df.State_Name == state]
-    x1_l = translator.detect(x1)
-    if (x1_l.lang != 'en'):
-        x1_l_t = translator.translate(x1, src = x1_l.lang, dest = 'en')
-        x1 = x1_l_t.text
-
     x2 = x1[x1.District_Name == district]
-    x2_l = translator.detect(x2)
-    if (x2_l.lang != 'en'):
-        x2_l_t = translator.translate(x2, src = x2_l.lang, dest = 'en')
-        x2 = x2_l_t.text
-
     x3 = x2[x2.Season == season]
-    x3_l = translator.detect(x3)
-    if (x3_l.lang != 'en'):
-        x3_l_t = translator.translate(x3, src = x3_l.lang, dest = 'en')
-        x3 = x3_l_t.text
     crops = x3['Crop'].unique()
     maxi = 0
     max_ind = 0
@@ -94,13 +95,29 @@ def get_rec(details):
 @app.route('/chatbot/<string:instruction>/<string:source>/<string:des>/<int:ch>', methods = ['POST'])
 def chatgpt_call(instruction, source, des, ch):
     if (ch == 0):
-        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-        embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
-        db = Chroma(persist_directory="db", embedding_function=embeddings, client_settings=CHROMA_SETTINGS)
+    #     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+    #     embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
+    #     db = Chroma(persist_directory="db", embedding_function=embeddings, client_settings=CHROMA_SETTINGS)
         
-        retriever = db.as_retriever()
-        qa = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, memory = memory)
+    #     retriever = db.as_retriever()
+    #     qa = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, memory = memory)
 
+    #     l = translator.detect(instruction)
+    #     if (source != des):
+    #         if (l.lang != source):
+    #             raise Exception("Wrong language")
+    #         else:
+    #             instruction = translator.translate(instruction, src = source, dest = des)
+    #         instruction = instruction.text
+    # #  print(instruction)
+    #     # qa = qa_llm()
+    #     # generated_text = qa(instruction)
+    #     # answer = generated_text['result']
+    #     generated_text = qa({"question": instruction})
+    #     answer = generated_text['answer']
+    #     ans = {
+    #         "Answer": answer
+    #     }
         l = translator.detect(instruction)
         if (source != des):
             if (l.lang != source):
@@ -108,26 +125,32 @@ def chatgpt_call(instruction, source, des, ch):
             else:
                 instruction = translator.translate(instruction, src = source, dest = des)
             instruction = instruction.text
-    #  print(instruction)
-        # qa = qa_llm()
-        # generated_text = qa(instruction)
-        # answer = generated_text['result']
-        generated_text = qa({"question": instruction})
-        answer = generated_text['answer']
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": instruction}]
+        )
+        answer = response.choices[0].message["content"]
         ans = {
-            "Answer": answer
+            "Answer": answer           
         }
-        # memory.save_context({"input": instruction}, {"output": answer})
-        # chat_history.append((instruction, answer))
-        # print(chat_history)
     elif (ch == 1):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": instruction}]
         )
-        ans = {
-            "Answer" : response.choices[0].message["content"]
-        }
+        answer = response.choices[0].message["content"]
+        answer_l = translator.detect(answer)
+        if (answer_l.lang != 'hi'):
+            answer_hin = translator.translate(answer, src = source, dest = 'hi')
+            ans = {
+                "Answer": answer,
+                "Hindi" : answer_hin.text
+            }
+        else:
+            ans = {
+            "   Answer": answer
+            }
+    # print(ans)
     return ans
 
 @app.route('/predict/<string:features>', methods = ['POST'])

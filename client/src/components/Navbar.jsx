@@ -62,20 +62,37 @@ const Navbar = () => {
               </svg>
             </button>
           </li>
+          
           <li>
             <a
-              href="/home"
+              href="/services"
               className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
             >
-              About
+              Services
+            </a>
+          </li>
+          {/* <li>
+            <a
+              href="/soil"
+              className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
+            >
+              Crop Recommendation<br/> (Soil)
             </a>
           </li>
           <li>
             <a
-              href="/upload"
+              href="/soil1"
               className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
             >
-              Image-Diagnosis
+              Crop Recommendation<br/> (Region)
+            </a>
+          </li> */}
+          {/* <li>
+            <a
+              href="/marketplace"
+              className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
+            >
+              Market
             </a>
           </li>
           <li>
@@ -86,6 +103,14 @@ const Navbar = () => {
               Forum
             </a>
           </li>
+          <li>
+            <a
+              href="/about"
+              className="text-[#F5EEC8] hover:text-gray-400 transition duration-300 ease-in-out"
+            >
+              Soil Detection
+            </a>
+          </li> */}
           <li>
             <UserButton />
           </li>

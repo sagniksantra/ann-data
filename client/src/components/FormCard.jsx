@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FormControl, FormLabel, Input, Select } from "@chakra-ui/react";
 
 const App = () => {
   const [questions, setQuestions] = useState([]);
@@ -40,7 +41,7 @@ const App = () => {
     }
 
     axios
-      .post(`http://localhost:3500/api/questions/${questionId}/answers`, {
+      .post("http://localhost:3500/api/questions/${questionId}/answers", {
         text: newAnswers[questionId],
       })
       .then(() => {
@@ -62,7 +63,7 @@ const App = () => {
   const filteredQuestions = filterQuestionsByTag(selectedTag);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 h-screen w-screen">
       <h1 className="text-3xl mb-4 text-center">Question Answer Forum</h1>
       <form
         className="mb-4"
@@ -100,46 +101,58 @@ const App = () => {
             id="question"
             value={newQuestion}
             onChange={(e) => setNewQuestion(e.target.value)}
-            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
+            className="block w-[70%] p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
             placeholder="Ask a question..."
             required
           />
           <div className="relative mx-4">
-            <label
+            {/* <label
               htmlFor="tag"
               className="mb-1 text-sm font-medium text-gray-900"
             >
               Select Tag
-            </label>
+            </label> */}
             <select
               id="tag"
               value={selectedTag}
               onChange={handleTagChange}
-              className="block w-full p-2 pl-3 pr-8 text-sm border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
+              className="block w-[110%] p-2 pl-3 pr-5 mr-2 text-sm border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500"
               required
             >
               <option value="">All Tags</option>
               <option value="weather">Weather</option>
               <option value="produce">Produce</option>
               <option value="crops">Crops</option>
-              <option value="pests">Pests</option>
+              <option value="produce">Pests</option>
+              <option value="produce">Policies & Subsidies</option>
+              <option value="produce">Yield</option>
             </select>
           </div>
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ml-2"
           >
             Ask
           </button>
         </div>
       </form>
       {filteredQuestions.length > 0 && (
-        <div className="grid grid-cols-1 gap-4">
+        <div className="grid grid-cols-1 gap-4 w-[75%] p-4">
           {filteredQuestions.map((question) => (
             <div key={question._id} className="bg-gray-100 rounded p-4">
               <div className="mb-2 font-bold text-lg">{question.text}</div>
-              <div className="text-blue-600">{`Tag: ${question.tag}`}</div>
-              {question.answers.map((answer, index) => (
+              {/* <div className="text-blue-600">Tag: {question.tag}</div> */}
+              <FormControl>
+                {/* <FormLabel>Country</FormLabel> */}
+                <Select placeholder="Select answer to view">
+                  {question.answers.map((answer, index) => (
+                    <option key={index} value={answer.text}>
+                      {answer.text}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+              {/*{question.answers.map((answer, index) => (
                 <div
                   key={index}
                   className="bg-white border border-gray-300 p-3 mb-2 rounded"
@@ -148,7 +161,7 @@ const App = () => {
                     answer.text
                   }`}</div>
                 </div>
-              ))}
+                ))}*/}
               <div className="flex items-center">
                 <input
                   type="text"

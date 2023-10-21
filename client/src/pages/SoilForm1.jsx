@@ -1,9 +1,10 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import axios from 'axios';
 import { useLanguage } from "../context/LanguageContext";
+import { Input } from '@chakra-ui/react';
 
 const SoilForm1 = () => {
   const [formData, setFormData] = React.useState({
@@ -19,7 +20,7 @@ const SoilForm1 = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+  console.log(formData)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -36,7 +37,6 @@ const SoilForm1 = () => {
           s += String(x[i]).toLowerCase();
         }
       }
-      console.log(s);
       const response = await axios.post('http://127.0.0.1:5000/rec/'+s);
       let output = "";
       for (let i = 0; i < Object.keys(response.data).length; i++) {
@@ -71,7 +71,7 @@ const SoilForm1 = () => {
               ? "State"
               : "राज्य"}
               </label>
-              <TextField
+              <Input
                 id="state"
                 name="state"
                 type="text"
@@ -86,7 +86,7 @@ const SoilForm1 = () => {
               ? "District"
               : "ज़िला"}
               </label>
-              <TextField
+              <Input
                 id="district"
                 name="district"
                 type="text"
@@ -101,14 +101,37 @@ const SoilForm1 = () => {
               ? "Season"
               : "मौसम"}
               </label>
-              <TextField
+              <Input
                 id="season"
                 name="season"
                 type="text"
-                value={formData.potassium}
+                value={formData.season}
                 onChange={handleChange}
                 InputLabelProps={{ shrink: true }}
               />
+              {/* <select id="season"
+                name="season"
+                type="text"
+                value={formData.season}>
+                <option value="rabi">{currentLanguage === "english"
+              ? "Rabi"
+              : "ज़िला"}</option>
+                <option value="kharif">{currentLanguage === "english"
+              ? "Kharif"
+              : "ज़िला"}</option>
+                <option value="summer">{currentLanguage === "english"
+              ? "Summer"
+              : "ज़िला"}</option>
+                <option value="autumn">{currentLanguage === "english"
+              ? "Autumn"
+              : "ज़िला"}</option>
+                <option value="winter">{currentLanguage === "english"
+              ? "Autumn"
+              : "ज़िला"}</option>
+                <option value="wholeyear">{currentLanguage === "english"
+              ? "Whole Year"
+              : "ज़िला"}</option>
+            </select>*/}
             </div>
             {/* Submit Button */}
             <button className="text-white bg-[#555843] border-0 py-2 px-2 focus:outline-none rounded text-lg w-1/2">
