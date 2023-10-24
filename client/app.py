@@ -19,7 +19,7 @@ from constants import CHROMA_SETTINGS
 app = Flask(__name__)
 CORS(app)
 
-os.environ["OPENAI_API_KEY"] = "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"
+
 os.environ["TOKENIZERS_PARALLELISM"] = "False"
 # llm = OpenAI(openai_api_key=openai_api_key, temperature=0)
 llm = ChatOpenAI(openai_api_key=os.environ["OPENAI_API_KEY"], temperature=0.1, model="gpt-3.5-turbo")

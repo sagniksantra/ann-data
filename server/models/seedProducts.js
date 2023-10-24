@@ -8,7 +8,7 @@ const seedDB = async () => {
     // Connect to the MongoDB database
     mongoose
       .connect(
-        "mongodb+srv://sranjan0208:kafka@cluster0.uksgwg0.mongodb.net/?retryWrites=true&w=majority",
+        DATABASE,
         {
           useNewUrlParser: true,
           useUnifiedTopology: true,
@@ -24,7 +24,7 @@ const seedDB = async () => {
       const product = new Product({
         name: crops[i],
         price: 159,
-        image: `https://source.unsplash.com/1600x900/?${crops[i]} plant`,
+        image: `https://source.unsplash.com/1600x900/?${crops[i]} crops`,
         category: "Food",
         quantity: 10,
       });

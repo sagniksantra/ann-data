@@ -7,7 +7,7 @@ const seedDB = async () => {
     // Connect to the MongoDB database
     mongoose
       .connect(
-        "mongodb+srv://sranjan0208:kafka@cluster0.uksgwg0.mongodb.net/?retryWrites=true&w=majority",
+        DATABASE,
         {
           useNewUrlParser: true,
           useUnifiedTopology: true,

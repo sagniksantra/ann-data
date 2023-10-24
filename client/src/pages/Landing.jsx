@@ -69,8 +69,8 @@ const Landing = () => {
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
             <img
               className="object-cover object-center rounded"
-              alt="hero"
-              src="https://i.ibb.co/bmfX8L6/farmer.jpg"
+              alt="farmer img"
+              src="https://images.unsplash.com/photo-1528693404014-b13ebe6e723e?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGluZGlhbiUyMGZhcm1lcnxlbnwwfHwwfHx8MA%3D%3D"
             />
           </div>
         </div>

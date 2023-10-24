@@ -22,7 +22,7 @@ persist_directory = "db"
 #                                        model_kwargs = {'device' : 'cpu'})
 #     db = FAISS.from_documents(texts, embeddings)
 #     db.save_local(DB_FAISS_PATH)
-# os.environ["OPENAI_API_KEY"] = "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"
+
 def main():
     for root, dirs, files in os.walk("docs"):
         for file in files:

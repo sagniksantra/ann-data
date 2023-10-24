@@ -42,7 +42,7 @@ function App() {
             {/* <svg xmlns="..\public\logo.svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
             </svg> */}
-            <span class="ml-3 text-4xl font-bold">अन्न-Data</span>
+            <span class="ml-3 text-4xl font-bold text-[#F5EEC8]">अन्न-Data</span>
           </a>
           
           
@@ -56,7 +56,7 @@ function App() {
             </h1>
             <p className="mb-8 leading-relaxed">Copper mug try-hard pitchfork pour-over freegan heirloom neutra air plant cold-pressed tacos poke beard tote bag. Heirloom echo park mlkshk tote bag selvage hot chicken authentic tumeric truffaut hexagon try-hard chambray.</p>
             <div className="flex justify-center">
-              <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              <button className="inline-flex text-white bg-[#555843] border-0 py-2 px-6 focus:outline-none hover:bg-[#555843] rounded text-lg">
                 <a href='/home'>Get Started</a>
               </button>
 
