@@ -1,7 +1,5 @@
 # अन्न-Data - Revolutionizing Indian Agriculture with Data-Driven Precision
 
-Uploading अन्न-Data - Made with Clipchamp.mp4…
-
 https://www.youtube.com/watch?v=YP3b2HsfaIs
 
 ## Overview
