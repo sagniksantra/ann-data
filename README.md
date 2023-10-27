@@ -1,5 +1,9 @@
 # अन्न-Data - Revolutionizing Indian Agriculture with Data-Driven Precision
 
+Uploading अन्न-Data - Made with Clipchamp.mp4…
+
+https://www.youtube.com/watch?v=YP3b2HsfaIs
+
 ## Overview
 
 Anndata is a groundbreaking platform designed to transform the landscape of Indian agriculture by leveraging data-driven precision techniques. By combining cutting-edge technologies such as AI, data analysis, and community building, Anndata empowers farmers, enhances crop yield, and optimizes the agricultural supply chain. This repository contains the source code and documentation for the Anndata platform, developed using a tech stack that includes React, Tailwind, Node.js, MongoDB, Python, and Razorpay for payments.
